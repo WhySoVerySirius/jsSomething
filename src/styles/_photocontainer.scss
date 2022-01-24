@@ -1,0 +1,191 @@
+@import 'variables';
+.photoContainer {
+    padding-inline: 1rem;
+    padding-bottom: 0.625rem;
+    height: 120px;
+    width: 100%;
+    border-bottom: 1px rgba($color: $infoColor, $alpha: 0.2) solid;
+    position: relative;
+    .photoActionsContainer {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0.5rem 0 0;
+        h2 {
+            font-size: 1.5rem;
+            font-weight: lighter;
+            text-transform: capitalize;
+            color: $mainColor;
+            height: unset;
+        }
+        div {
+            display: flex;
+            justify-content: space-between;
+            height: unset;
+            .photoActions {
+                &>* {
+                    width: 20px;
+                    height: 20px;
+                    margin-inline: 5px;
+                }
+                .photoUpload {
+                    content: url(../img/icons/uploadfile.png);
+                    position: relative;
+                    &::after {
+                        content: '';
+                        // position: absolute;
+                        // text-transform: capitalize;
+                        width: 4rem;
+                        height: 2rem;
+                        top: 0;
+                        left: 0;
+                        background: url(../img/icons/opentextboxsmth.png);
+                    }
+                }
+                .photoNewFolder {
+                    content: url(../img/icons/newfolder.png);
+                }
+                .photoShareFolder {
+                    content: url(../img/icons/share.png);
+                }
+                .photoDelete {
+                    content: url(../img/icons/delete.png);
+                }
+            }
+            .photoFilter {
+                display: flex;
+                font-size: 1rem;
+                text-transform: capitalize;
+                font-weight: bold;
+                color: $mainColor;
+                align-items: center;
+                div {
+                    margin-inline: 5px;
+                    border-radius: 3px;
+                    padding: 3px 10px;
+                }
+                .active {
+                    background: $mainColor;
+                    color: $textWhiteColor
+                }
+            }
+        }
+    }
+}
+
+.photoGrid {
+    width: 100%;
+    height: calc(100% - 120px);
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 410px);
+    grid-auto-rows: 400px;
+    row-gap: 20px;
+    padding-inline: 1rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .photoFrame {
+        text-align: left;
+        font-size: 1rem;
+        padding-inline: 2px;
+        margin-inline: 1px;
+        padding-top: 5px;
+        border-radius: 3px;
+        &:hover {
+            background: $photoBackground;
+            box-shadow: 0 0 1px 0 $infoColor;
+        }
+        .photoHolder {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 97%;
+            height: 80%;
+            margin-inline: auto;
+        }
+        h4 {
+            color: $mainColor;
+            text-transform: capitalize;
+            padding-inline: 2px;
+        }
+        p {
+            color: $infoColor;
+            text-transform: uppercase;
+            padding-inline: 2px;
+        }
+    }
+    .img1 {
+        background: url(../img/row3group3.png)
+    }
+    .img2 {
+        background: url(../img/row3group5.png)
+    }
+    .img3 {
+        background: url(../img/row3group6.png)
+    }
+    .img4 {
+        background: url(../img/row3group7.png)
+    }
+    .img5 {
+        background: url(../img/row3group8.png)
+    }
+    .img6 {
+        background: url(../img/row2group3.png)
+    }
+    .img7 {
+        background: url(../img/row2group5.png)
+    }
+    .img8 {
+        background: url(../img/row2group6.png)
+    }
+    .img9 {
+        background: url(../img/row2group7.png)
+    }
+    .img10 {
+        background: url(../img/row2group8.png)
+    }
+    .img11 {
+        background: url(../img/row1group3.png)
+    }
+    .img12 {
+        background: url(../img/row1group5.png)
+    }
+    .img13 {
+        background: url(../img/row1group6.png)
+    }
+    .img14 {
+        background: url(../img/row1group7.png)
+    }
+    .img15 {
+        background: url(../img/row1group8.png)
+    }
+}
+
+@media (max-width: 2400px) {
+    .photoGrid {
+        grid-template-columns: repeat(4, 410px);
+    }
+}
+
+@media (max-width: 2000px) {
+    .photoGrid {
+        grid-template-columns: repeat(3, 410px);
+    }
+}
+
+@media (max-width: 1650px) {
+    .photoGrid {
+        grid-template-columns: repeat(5, 200px);
+        grid-auto-rows: 250px;
+    }
+}
+
+@media (max-width: 800px) {
+    .photoGrid {
+        grid-template-columns: repeat(2, 40vw);
+        grid-auto-rows: 250px;
+        column-gap: 3.5vw;
+        padding: 20px 8vw 0;
+    }
+}

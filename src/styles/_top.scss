@@ -1,0 +1,61 @@
+@import 'variables';
+.topContainer {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px rgba($color: $infoColor, $alpha: 0.2) solid;
+    .topInnerContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 1rem;
+        .search {
+            width: 60%;
+            position: relative;
+            padding: 1.5rem;
+            &::before {
+                content: '';
+                position: absolute;
+                background: url(../img/icons/search.png);
+                background-size: cover;
+                height: 20px;
+                width: 20px;
+                left: 0;
+                top: 28px;
+            }
+            input {
+                width: 100%;
+                padding-left: 0.75rem;
+                font-size: 1.25rem;
+                color: $infoColor;
+                font-weight: lighter;
+                border: none;
+            }
+        }
+        .user {
+            position: relative;
+            color: $mainColor;
+            font-size: 1.25rem;
+            &::before {
+                content: '';
+                background: url(../img/icons/alert.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                position: absolute;
+                height: 30px;
+                width: 20px;
+                left: -2rem;
+                top: -5px;
+            }
+            &:focus-visible {
+                border: rgba($color: $infoColor, $alpha: 0.2) 1px solid !important;
+            }
+            select {
+                border: none;
+                background: transparent;
+                padding-right: 1rem;
+            }
+        }
+    }
+}
