@@ -370,6 +370,9 @@ html {
   .navContainer .progressContainer #progressbar::after {
     top: -3vh !important;
   }
+  .navContainer .progressContainer .scamButton {
+    padding: 0 1rem 1rem;
+  }
 }
 @font-face {
   font-family: "mainFont";
@@ -642,13 +645,35 @@ html {
     grid-auto-rows: 250px;
   }
 }
+@media (max-width: 1420px) {
+  .photoGrid {
+    -ms-grid-columns: (200px)[4];
+    grid-template-columns: repeat(4, 200px);
+    grid-auto-rows: 250px;
+  }
+}
+@media (max-width: 1200px) {
+  .photoGrid {
+    -ms-grid-columns: (200px)[3];
+    grid-template-columns: repeat(3, 200px);
+    grid-auto-rows: 250px;
+  }
+}
+@media (max-width: 1000px) {
+  .photoGrid {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 400px;
+  }
+}
 @media (max-width: 800px) {
   .photoGrid {
-    -ms-grid-columns: 40vw auto 40vw;
+    -ms-grid-columns: 40vw 3.5vw 40vw;
     grid-template-columns: repeat(2, 40vw);
     grid-auto-rows: 250px;
-    -webkit-column-gap: auto;
-       -moz-column-gap: auto;
-            column-gap: auto;
+    -webkit-column-gap: 3.5vw;
+       -moz-column-gap: 3.5vw;
+            column-gap: 3.5vw;
+    padding: 20px 8vw 0;
   }
 }

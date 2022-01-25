@@ -7,14 +7,11 @@ $(document).ready(function() {
     if (currentWidth <= 800) {
         $('.progressContainer').css('display', 'none');
         $('nav').css('display', 'none');
-
-
         $(".logo").on('click', function() {
             if ($('nav').css('display') == 'none') {
                 $('nav').css('display', 'flex');
             } else {
                 $('nav').toggle()
-
             }
             $('.progressContainer').toggle();
             if ($('.navContainer').height() < $(window).height()) {
@@ -30,5 +27,6 @@ $(document).ready(function() {
     } else {
         $('nav').css('display', 'flex');
         $('.progressContainer').css('display', 'flex');
+
     }
 });
