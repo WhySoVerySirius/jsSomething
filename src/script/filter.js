@@ -1,7 +1,27 @@
-$(document).ready(function() {
-    let photostring = '';
-    photos.forEach(element => {
-        photostring += `<div class='photoFrame'><div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size}</p></div>`
-    });
-    $('.photoGrid').html(photostring);
+$(function() {
+    $('.name, .size, .modified').on('click', function(e) {
+        let name = $('.name');
+        let size = $('.size');
+        let mod = $('.modified')
+        if (name.is(e.target)) {
+            name.addClass('active');
+            size.removeClass('active');
+            mod.removeClass('active');
+            console.log('name active');
+            nameArray = [...photos]
+            nameArray.sort((a, b) => (a.name > b.name) ? 1 : -1)
+
+
+        } else if (size.is(e.target)) {
+            name.removeClass('active');
+            size.addClass('active');
+            mod.removeClass('active');
+            console.log('size active')
+        } else {
+            name.removeClass('active');
+            size.removeClass('active');
+            mod.addClass('active');
+            console.log('mod active')
+        }
+    })
 })

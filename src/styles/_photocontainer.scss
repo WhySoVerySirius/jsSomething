@@ -30,27 +30,106 @@
                     margin-inline: 5px;
                 }
                 .photoUpload {
-                    content: url(../img/icons/uploadfile.png);
+                    content: '';
+                    background: url(../img/icons/uploadfile.png);
+                    background-size: cover;
                     position: relative;
-                    &::after {
-                        content: '';
-                        // position: absolute;
-                        // text-transform: capitalize;
-                        width: 4rem;
-                        height: 2rem;
-                        top: 0;
-                        left: 0;
+                    &::before {
+                        position: absolute;
+                        content: 'Upload';
+                        font-size: 0.625rem;
+                        text-align: center;
+                        padding-top: 3px;
                         background: url(../img/icons/opentextboxsmth.png);
+                        background-size: cover;
+                        width: 39px;
+                        height: 20px;
+                        left: 0rem;
+                        bottom: -1.5rem;
+                        display: none;
+                    }
+                    &:hover {
+                        &::before {
+                            display: block;
+                        }
                     }
                 }
                 .photoNewFolder {
-                    content: url(../img/icons/newfolder.png);
+                    content: '';
+                    background: url(../img/icons/newfolder.png);
+                    background-size: cover;
+                    position: relative;
+                    width: 25px;
+                    &::before {
+                        position: absolute;
+                        content: 'New';
+                        font-size: 0.625rem;
+                        text-align: center;
+                        padding-top: 3px;
+                        background: url(../img/icons/opentextboxsmth.png);
+                        background-size: cover;
+                        width: 39px;
+                        height: 20px;
+                        left: 0rem;
+                        bottom: -1.5rem;
+                        display: none;
+                    }
+                    &:hover {
+                        &::before {
+                            display: block;
+                        }
+                    }
                 }
                 .photoShareFolder {
-                    content: url(../img/icons/share.png);
+                    content: '';
+                    background: url(../img/icons/share.png);
+                    background-size: cover;
+                    position: relative;
+                    &::before {
+                        position: absolute;
+                        content: 'Share';
+                        font-size: 0.625rem;
+                        text-align: center;
+                        padding-top: 3px;
+                        background: url(../img/icons/opentextboxsmth.png);
+                        background-size: cover;
+                        width: 39px;
+                        height: 20px;
+                        left: 0rem;
+                        bottom: -1.5rem;
+                        display: none;
+                    }
+                    &:hover {
+                        &::before {
+                            display: block;
+                        }
+                    }
                 }
                 .photoDelete {
-                    content: url(../img/icons/delete.png);
+                    content: '';
+                    background: url(../img/icons/delete.png);
+                    background-size: cover;
+                    width: 16px;
+                    position: relative;
+                    &::before {
+                        position: absolute;
+                        content: 'Delete';
+                        font-size: 0.625rem;
+                        text-align: center;
+                        padding-top: 3px;
+                        background: url(../img/icons/opentextboxsmth.png);
+                        background-size: cover;
+                        width: 39px;
+                        height: 20px;
+                        left: -5px;
+                        bottom: -1.5rem;
+                        display: none;
+                    }
+                    &:hover {
+                        &::before {
+                            display: block;
+                        }
+                    }
                 }
             }
             .photoFilter {
