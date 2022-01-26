@@ -1,119 +1,142 @@
-import { convert } from './module/convert.js';
-let photos = [{
+import { convert, arrayValue } from './module/convert.js';
+let photos1 = [{
     "name": "Sad Clown",
     "url": "../img/row3group3.png",
     "size": 3,
-    'date': '2021-11-02 12:20'
+    'date': '2021-11-02 12:20',
+    'id': 0
 
 }, {
     "name": "Waiting For The Train",
     "url": "../img/row3group5.png",
     "size": 1.5,
-    'date': '2021-11-02 12:20'
+    'date': '2021-11-02 12:20',
+    'id': 1
 }, {
     "name": "Little Friends",
     "url": "../img/row3group6.png",
     "size": 4.5,
-    'date': '2021-11-04 12:20'
+    'date': '2021-11-04 12:20',
+    'id': 2
 }, {
     "name": "What A Wonderful",
     "url": "../img/row3group7.png",
     "size": 2,
-    'date': '2021-10-02 12:20'
+    'date': '2021-10-02 12:20',
+    'id': 3
 }, {
     "name": "Gymnast",
     "url": "../img/row3group8.png",
     "size": 2,
-    'date': '2021-09-02 12:20'
+    'date': '2021-09-02 12:20',
+    'id': 4
 }, {
     "name": "Blue Dandelion Drops",
     "url": "../img/row2group3.png",
     "size": 3,
-    'date': '2021-11-20 12:20'
+    'date': '2021-11-20 12:20',
+    'id': 5
 
 }, {
     "name": "Poppy For Mom",
     "url": "../img/row2group5.png",
     "size": 1.5,
-    'date': '2021-07-14 12:20'
+    'date': '2021-07-14 12:20',
+    'id': 6
 }, {
     "name": "Drop some Droplets",
     "url": "../img/row2group6.png",
     "size": 1.5,
-    'date': '2021-03-24 12:20'
+    'date': '2021-03-24 12:20',
+    'id': 7
 }, {
     "name": "Daisy",
     "url": "../img/row2group7.png",
     "size": 4.5,
-    'date': '2020-11-02 12:20'
+    'date': '2020-11-02 12:20',
+    'id': 8
 }, {
     "name": "Sunshine",
     "url": "../img/row2group8.png",
     "size": 2,
-    'date': '2019-05-02 12:20'
+    'date': '2019-05-02 12:20',
+    'id': 9
 }, {
     "name": "Britva",
     "url": "../img/row1group3.png",
     "size": 3,
-    'date': '2021-07-11 12:20'
+    'date': '2021-07-11 12:20',
+    'id': 10
 
 }, {
     "name": "Chad Glasses",
     "url": "../img/row1group5.png",
     "size": 1.5,
-    'date': '2021-01-02 12:20'
+    'date': '2021-01-02 12:20',
+    'id': 11
 }, {
     "name": "Timelapse",
     "url": "../img/row1group6.png",
     "size": 4.5,
-    'date': '2021-06-15 12:20'
+    'date': '2021-06-15 12:20',
+    'id': 12
 }, {
     "name": "Reason To Live",
     "url": "../img/row1group7.png",
     "size": 2,
-    'date': '2021-12-31 12:20'
+    'date': '2021-12-31 12:20',
+    'id': 13
 }, {
     "name": "W/E",
     "url": "../img/row1group8.png",
     "size": 1.2,
-    'date': '2021-10-04 12:20'
+    'date': '2021-10-04 12:20',
+    'id': 14
 }];
 
-// pradinis ft renderis
-function render(theArray) {
-    let photostring = '';
-    wholesize = 0;
-    theArray.forEach(element => {
-        photostring += `<div class='photoFrame'><div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size} mb</p></div>`;
-        wholesize += element.size
-    });
-    $('.photoGrid').html(photostring);
-    console.log(wholesize)
-    console.log(typeof(wholesize))
-    $('#progressbar').val(wholesize);
-    $('#progressText').html(wholesize + 'MB / 100 MB');
-
-
-}
-// nauju foto renderis
-function otherrender(theArray) {
-    let newphotostring = '';
-    theArray.forEach(element => {
-        newphotostring += `<div class='photoFrame'><div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size} mb</p></div>`;
-        wholesize += convert(element.size);
-    });
-    $('.photoGrid').append(newphotostring);
-    console.log(wholesize)
-}
-
-
 let wholesize = 0;
+let photos = [...photos1];
+let removeArray = []
+
+function render(theArray) {
+    document.getElementById('photoGrids').innerHTML = ''
+    theArray.forEach(element => {
+        const frame = document.getElementById('photoGrids').appendChild(document.createElement('div'));
+        frame.className = ('photoFrame');
+        frame.innerHTML = `<div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size} mb</p>`;
+        frame.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('selected')) {
+                this.classList.add('selected');
+                removeArray.push(element.id);
+                console.log(removeArray)
+            } else {
+                this.classList.remove('selected');
+                let removeindex = removeArray.indexOf(element.id);
+                removeArray.splice(removeindex, 1);
+                console.log(removeArray)
+            }
+        })
+    })
+
+    wholesize = arrayValue(photos);
+    $('#progressbar').val(wholesize);
+    $('#progressText').html(wholesize.toFixed(2) + 'MB / 100 MB');
+
+};
+console.log(photos)
+
+
+
+
+
+
+
+
 
 
 $(function() {
-    let nameArray = [...photos]
-    nameArray.sort((a, b) => (a.name > b.name) ? 1 : -1);
-    render(nameArray);
+    photos.sort((a, b) => (a.name > b.name) ? 1 : -1);
+    render(photos);
     let name = $('.name');
     let size = $('.size');
     let mod = $('.modified');
@@ -122,50 +145,62 @@ $(function() {
             name.addClass('active');
             size.removeClass('active');
             mod.removeClass('active');
-            render(nameArray);
+            photos.sort((a, b) => a.name > b.name ? 1 : -1);
+            render(photos);
         } else if (size.is(e.target)) {
             name.removeClass('active');
             size.addClass('active');
             mod.removeClass('active');
-            let sizeArray = [...photos]
-            sizeArray.sort((a, b) => (a.size > b.size) ? 1 : -1);
-            render(sizeArray);
+            photos.sort((a, b) => (a.size > b.size) ? 1 : -1);
+            render(photos);
         } else {
             name.removeClass('active');
             size.removeClass('active');
             mod.addClass('active');
-            let dateArray = [...photos]
-            dateArray.sort((a, b) => (a.date > b.date) ? 1 : -1);
-            render(dateArray);
+            photos.sort((a, b) => (a.date > b.date) ? 1 : -1);
+            render(photos);
         }
     })
-})
 
 
 
 
-$(function() {
     $('.photoUpload').on('change', function() {
-        let content = [];
+        let arrayLength = photos.length;
         for (let i = 0; i < this.files.length; i++) {
+            arrayLength++
             const element = this.files[i];
-            content.push({
+            photos.push({
                 name: element.name,
-                size: element.size,
+                size: convert(element.size),
                 url: URL.createObjectURL(element),
+                id: arrayLength
             })
         }
-        otherrender(content);
-        $('#progressbar').val(wholesize);
-        $('#progressText').html(wholesize + 'MB / 100 MB');
-    })
-    $('.photoDelete').on('click', function() {
-        $('.photoFrame').remove('.selected')
-    })
-})
+        render(photos);
 
-$(function() {
-    $('.photoFrame').on('click', function() {
-        $(this).toggleClass('selected')
     })
+
+
+
+    $('.photoDelete').on('click', function() {
+        removeArray.forEach(element => {
+            for (let index = 0; index < photos.length; index++) {
+                if (photos[index]['id'] == element) {
+                    photos.splice(index, 1);
+                }
+            }
+        });
+        removeArray = [];
+        let i = 0
+        photos.forEach(element => {
+            element.id = i;
+            i++;
+        });
+        console.log(photos)
+        console.log(removeArray)
+        render(photos)
+
+    })
+
 })
