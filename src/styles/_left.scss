@@ -108,6 +108,25 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        .progressInfo {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-inline: 1rem;
+        }
+        #progressText {
+            content: '50 gb / 100 gb';
+            font-size: 1rem;
+            color: $textWhiteColor;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        #progressPlus {
+            height: 20px;
+            width: 20px;
+            background: url(../img/icons/add.png);
+            background-size: cover;
+        }
         .progressBar {
             width: 100%;
             margin-bottom: 40px;
@@ -118,26 +137,6 @@
                 height: 5px;
                 margin-inline: auto;
                 position: relative;
-                &::before {
-                    content: '50 gb / 100 gb';
-                    font-size: 1rem;
-                    color: $textWhiteColor;
-                    font-weight: bold;
-                    position: absolute;
-                    left: 0;
-                    top: -25px;
-                    text-transform: uppercase;
-                }
-                &::after {
-                    content: '';
-                    background: url(../img/icons/add.png);
-                    position: absolute;
-                    background-size: cover;
-                    right: 0;
-                    top: -26px;
-                    height: 20px;
-                    width: 20px;
-                }
             }
         }
         .scamButton {
@@ -258,14 +257,6 @@
         }
         .progressContainer {
             display: none;
-            #progressbar {
-                &::before {
-                    top: -4vh !important;
-                }
-                &::after {
-                    top: -3vh !important
-                }
-            }
             .scamButton {
                 padding: 0 1rem 1rem;
             }

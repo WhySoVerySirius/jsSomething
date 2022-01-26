@@ -1,3 +1,4 @@
+import { convert } from './module/convert.js';
 let photos = [{
     "name": "Sad Clown",
     "url": "../img/row3group3.png",
@@ -74,49 +75,97 @@ let photos = [{
 }, {
     "name": "W/E",
     "url": "../img/row1group8.png",
-    "size": "undefined",
+    "size": 1.2,
     'date': '2021-10-04 12:20'
 }];
 
+// pradinis ft renderis
 function render(theArray) {
     let photostring = '';
+    wholesize = 0;
     theArray.forEach(element => {
-        photostring += `<div class='photoFrame'><div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size} mb</p></div>`
+        photostring += `<div class='photoFrame'><div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size} mb</p></div>`;
+        wholesize += element.size
     });
     $('.photoGrid').html(photostring);
+    console.log(wholesize)
+    console.log(typeof(wholesize))
+    $('#progressbar').val(wholesize);
+    $('#progressText').html(wholesize + 'MB / 100 MB');
+
+
+}
+// nauju foto renderis
+function otherrender(theArray) {
+    let newphotostring = '';
+    theArray.forEach(element => {
+        newphotostring += `<div class='photoFrame'><div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size} mb</p></div>`;
+        wholesize += convert(element.size);
+    });
+    $('.photoGrid').append(newphotostring);
+    console.log(wholesize)
 }
 
 
+let wholesize = 0;
+
+
 $(function() {
-    render(photos);
+    let nameArray = [...photos]
+    nameArray.sort((a, b) => (a.name > b.name) ? 1 : -1);
+    render(nameArray);
+    let name = $('.name');
+    let size = $('.size');
+    let mod = $('.modified');
     $('.name, .size, .modified').on('click', function(e) {
-        let name = $('.name');
-        let size = $('.size');
-        let mod = $('.modified')
         if (name.is(e.target)) {
             name.addClass('active');
             size.removeClass('active');
             mod.removeClass('active');
-            console.log('name active');
-            nameArray = [...photos]
-            nameArray.sort((a, b) => (a.name > b.name) ? 1 : -1);
             render(nameArray);
         } else if (size.is(e.target)) {
             name.removeClass('active');
             size.addClass('active');
             mod.removeClass('active');
-            console.log('size active');
-            sizeArray = [...photos]
+            let sizeArray = [...photos]
             sizeArray.sort((a, b) => (a.size > b.size) ? 1 : -1);
             render(sizeArray);
         } else {
             name.removeClass('active');
             size.removeClass('active');
             mod.addClass('active');
-            console.log('mod active');
-            dateArray = [...photos]
+            let dateArray = [...photos]
             dateArray.sort((a, b) => (a.date > b.date) ? 1 : -1);
             render(dateArray);
         }
+    })
+})
+
+
+
+
+$(function() {
+    $('.photoUpload').on('change', function() {
+        let content = [];
+        for (let i = 0; i < this.files.length; i++) {
+            const element = this.files[i];
+            content.push({
+                name: element.name,
+                size: element.size,
+                url: URL.createObjectURL(element),
+            })
+        }
+        otherrender(content);
+        $('#progressbar').val(wholesize);
+        $('#progressText').html(wholesize + 'MB / 100 MB');
+    })
+    $('.photoDelete').on('click', function() {
+        $('.photoFrame').remove('.selected')
+    })
+})
+
+$(function() {
+    $('.photoFrame').on('click', function() {
+        $(this).toggleClass('selected')
     })
 })
