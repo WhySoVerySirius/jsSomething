@@ -102,18 +102,19 @@ function render(theArray) {
     document.getElementById('photoGrids').innerHTML = ''
     theArray.forEach(element => {
         const frame = document.getElementById('photoGrids').appendChild(document.createElement('div'));
-        frame.className = ('photoFrame');
+        if (removeArray.includes(element.id)) {
+            frame.className = ('photoFrame selected')
+        } else {
+            frame.className = ('photoFrame')
+        }
         frame.innerHTML = `<div class='photoHolder' style='background:url(${element.url}); background-size: cover; background-position: center'></div><h4>${element.name}</h4><p>${element.size} mb</p>`;
         frame.addEventListener('click', function(e) {
-            if (!e.target.classList.contains('selected')) {
-                this.classList.add('selected');
-                removeArray.push(element.id);
-                console.log(removeArray)
+            this.classList.toggle('selected');
+            if (removeArray.includes(element.id)) {
+                let removeIndex = removeArray.indexOf(element.id);
+                removeArray.splice(removeIndex, 1)
             } else {
-                this.classList.remove('selected');
-                let removeindex = removeArray.indexOf(element.id);
-                removeArray.splice(removeindex, 1);
-                console.log(removeArray)
+                removeArray.push(element.id)
             }
         })
     })
@@ -160,26 +161,27 @@ $(function() {
             photos.sort((a, b) => (a.date > b.date) ? 1 : -1);
             render(photos);
         }
-    })
+    });
 
 
 
 
-    $('.photoUpload').on('change', function() {
+    $('#photoUpload').on('change', function() {
         let arrayLength = photos.length;
         for (let i = 0; i < this.files.length; i++) {
-            arrayLength++
+            arrayLength++;
             const element = this.files[i];
             photos.push({
                 name: element.name,
                 size: convert(element.size),
                 url: URL.createObjectURL(element),
-                id: arrayLength
+                id: arrayLength,
+                date: element.lastModified
             })
         }
         render(photos);
 
-    })
+    });
 
 
 
@@ -201,6 +203,22 @@ $(function() {
         console.log(removeArray)
         render(photos)
 
-    })
+    });
+
+
+    $('#searchBar').on('keyup', function() {
+        let content = this.value.toLowerCase();
+        let searchArray = [];
+        for (let index = 0; index < photos.length; index++) {
+            let check = photos[index].name.toLowerCase();
+            if (check.includes(content)) {
+                searchArray.push(photos[index])
+            }
+        }
+        console.log(searchArray)
+        render(searchArray)
+    });
+
+
 
 })

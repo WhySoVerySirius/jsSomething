@@ -1,0 +1,29 @@
+@import 'variables';
+.userContainer {
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    .userInnerContainer {
+        height: 100%;
+        width: 100%;
+        padding: 2rem;
+        background: $infoColor;
+        .userTable {
+            height: 100%;
+            width: 100%;
+            overflow-y: scroll;
+            th {
+                height: 120px;
+                text-align: left;
+                background: $locationTextColor;
+                padding-inline: 1rem;
+                color: white;
+            }
+            td {
+                text-align: left;
+                padding-inline: 1rem;
+                background: $photoBackground;
+            }
+        }
+    }
+}
