@@ -8,8 +8,35 @@
         width: 100%;
         padding: 2rem;
         background: $infoColor;
+        .userActions {
+            height: 100px;
+            background: $photoBackground;
+            display: flex;
+            align-items: center;
+            width: min-content;
+            &>div {
+                aspect-ratio: 1;
+                height: 40px;
+            }
+            .addUser {
+                background: url(../img/icons/Designbump.png);
+                background-size: cover;
+            }
+            .deleteUser {
+                background: url(../img/icons/Burn.png);
+                background-size: cover;
+            }
+            .akis {
+                background: url(../img/icons/question-green.png);
+                background-size: cover;
+            }
+            .editUser {
+                background: url(../img/icons/edit-9.png);
+                background-size: cover;
+            }
+        }
         .userTable {
-            height: 100%;
+            height: max-content;
             width: 100%;
             overflow-y: scroll;
             th {
@@ -23,6 +50,67 @@
                 text-align: left;
                 padding-inline: 1rem;
                 background: $photoBackground;
+                height: 50px;
+            }
+        }
+    }
+    #popUp {
+        position: absolute;
+        inset: 0;
+        z-index: 20;
+        background-color: rgba(0, 0, 0, 0.473);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        #popUpContent {
+            height: max-content;
+            width: fit-content;
+            background-color: white;
+            border-radius: 2rem;
+            padding-bottom: 2rem;
+            padding-inline: 2rem;
+            .topAction {
+                display: flex;
+                width: 100%;
+                height: 60px;
+                justify-content: flex-end;
+                align-items: center;
+                #popUpClose {
+                    height: 30px;
+                    aspect-ratio: 1;
+                    background: black;
+                    margin: 1rem 0 1rem;
+                    border-radius: 50%;
+                }
+            }
+            #popUpInnerContent {
+                height: calc(100% - 60px);
+                width: 100%;
+                .userInfo {
+                    height: 100%;
+                    width: 100%;
+                    padding-inline: 1rem;
+                    .veryBold {
+                        font-weight: bold;
+                        text-transform: capitalize;
+                    }
+                    .needsBold {
+                        font-weight: bold;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+            #newUserData {
+                display: inline-block;
+                margin: 1rem;
+            }
+            #editButtons {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                button {
+                    margin: 2rem;
+                }
             }
         }
     }

@@ -206,7 +206,7 @@ $(function() {
     });
 
 
-    $('#searchBar').on('keyup', function() {
+    $('#searchBar').on('input', function() {
         let content = this.value.toLowerCase();
         let searchArray = [];
         for (let index = 0; index < photos.length; index++) {

@@ -11,11 +11,13 @@ const htmlmin = require('gulp-htmlmin');
 const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const sync = require('browser-sync').create();
+const del = require('del');
+
 
 
 
 function html() {
-    return src('src/parts/**.html')
+    return src('src/**/*.html')
         .pipe(include({
             prefix: '@@',
         }))
@@ -51,8 +53,9 @@ function resetcss() {
 }
 
 function script() {
-    return src('src/script/*.{js,json}')
+    return src('src/script/**/*.{js,json}')
         .pipe(dest('dist/script'))
+
 }
 
 function fonts() {
@@ -60,6 +63,9 @@ function fonts() {
         .pipe(dest('dist/fonts'))
 }
 
+async function remove() {
+    del('dist/parts')
+}
 
 function serve() {
     sync.init({
@@ -69,8 +75,8 @@ function serve() {
     watch('src/**.html', series(html)).on('change', sync.reload)
     watch('src/parts/**.html', series(html)).on('change', sync.reload)
     watch('src/styles/**.scss', series(scss)).on('change', sync.reload)
-    watch('src/script/**.js', series(script)).on('change', sync.reload)
+    watch('src/script/**/*.js', series(script)).on('change', sync.reload)
 
 }
 
-exports.start = series(script, fonts, resetcss, html, scss, img, serve);
+exports.start = series(script, fonts, resetcss, html, remove, scss, img, serve);
