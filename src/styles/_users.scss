@@ -86,6 +86,15 @@
             #popUpInnerContent {
                 height: calc(100% - 60px);
                 width: 100%;
+                .editButtonsContainer {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    button {
+                        margin-inline: 2rem;
+                        margin-top: 2rem;
+                    }
+                }
                 .userInfo {
                     height: 100%;
                     width: 100%;
@@ -98,6 +107,34 @@
                         font-weight: bold;
                         text-transform: capitalize;
                     }
+                }
+                h3 {
+                    text-transform: capitalize;
+                }
+                .keyContainer {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    &>* {
+                        margin-inline: 2rem;
+                    }
+                }
+                .keyValues {
+                    text-transform: capitalize;
+                    width: fit-content;
+                    &::after {
+                        content: '  :';
+                    }
+                }
+                .nestedContainer {
+                    text-align: left;
+                    margin-left: 4rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .nestedKeyContainer {
+                    margin-inline: 2rem;
                 }
             }
             #newUserData {
