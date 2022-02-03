@@ -1,9 +1,9 @@
 import { getInfo, userPost, userDelete, userUpdate, getUserInfo } from "./module/fetch.js";
-// ---------------------------------------------------------------------------
-// --------------------------- The main Render---------------------------------
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------
+// --------------------------------------- The main Render-------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------
 function render(array) {
-    $('#userTable').html('<tr><th>Name</th><th>Phone No.</th><th>Username</th><th>E-Mail</th><th>Website</th></tr>');
+    $('#userTable').html(`<tr><th>Name</th><th>Phone No.</th><th>Username</th><th>E-Mail</th><th>Website</th></tr>`);
     array.forEach(element => {
         let $name = document.createElement('td'),
             username = document.createElement('td'),
@@ -39,9 +39,9 @@ function render(array) {
     });
 
 }
-// -----------------------------------------------------------
-// ------------------------ Inspect Render---------------------
-// -------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------
+// ------------------------ Inspect Render---------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 function inspectRender(object) {
     $('#popUpInnerContent').html('');
     for (const [key, value] of Object.entries(object)) {
@@ -76,9 +76,9 @@ function inspectRender(object) {
     }
     $('#popUp').css('display', 'flex');
 }
-// ----------------------------------------------------------------
-// ------------------------ Delete render---------------------------
-// ------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------
+// ------------------------ Delete render-----------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------
 async function deleteThisUser(id) {
     let deleteCheck = confirm('Do you wish to delete this user')
     switch (deleteCheck) {
@@ -94,9 +94,9 @@ async function deleteThisUser(id) {
             }
     }
 }
-// ----------------------------------------------------------------
-// --------------------------- Edit render -------------------------
-// ------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------
+// --------------------------- Edit render --------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
 async function userEdit(id) {
     try {
         let userToEdit = await getUserInfo(id);
@@ -194,9 +194,100 @@ async function userEdit(id) {
         alert('Error (User render) : ' + error)
     }
 }
-// ----------------------------------------------------------------
-// ----------------------------- SEARCH ----------------------------
-// ------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------
+// --------------------------------------------------- User Add ---------------------------------------------
+// -----------------------------------------------------------------------------------------------------------
+async function userAdd() {
+    try {
+        let existingUser = await getUserInfo(1);
+        $('#popUpInnerContent').html('');
+        let userToReturn = await {...existingUser };
+        let $confirmButton = document.createElement('button'),
+            cancelButton = document.createElement('button'),
+            buttonContainer = document.createElement('div');
+        // -------------------------------------------------------
+        // ------------------------ Edit buttons-------------------
+        // ---------------------------------------------------------
+        $confirmButton.innerHTML = 'Apply changes';
+        cancelButton.innerHTML = 'Cancel';
+        buttonContainer.className = 'editButtonsContainer';
+        $confirmButton.addEventListener('click', function() {
+            try {
+                let allUsersCheck = getInfo();
+                console.log(allUsersCheck)
+                let id = 11;
+                for (let index = 0; index < allUsersCheck.length + 1; index++) {
+                    const element = allUsersCheck[id];
+                    console.log(element)
+
+                }
+                userPost(id, userToReturn);
+                $('#popUp').toggle();
+                actionControll();
+            } catch (error) {
+                alert('User add confirm fail : ' + error)
+            }
+        })
+        cancelButton.addEventListener('click', function() {
+                try {
+                    userAdd();
+                } catch (error) {
+                    alert('User add cancel failed : ' + error)
+                }
+            })
+            // ------------------------------------------------------
+            // ----------------------- Edit loop ---------------------
+            // --------------------------------------------------------
+        for (const [key, value] of Object.entries(existingUser)) {
+            let $userKey = document.createElement('h2'),
+                userKeyValue = document.createElement('input'),
+                userKeyContainer = document.createElement('div');
+            $userKey.innerHTML = key;
+            $userKey.className = 'keyValues';
+            userKeyValue.placeholder = key;
+            userKeyValue.addEventListener('input', function() {
+                    let newValue = this.value;
+                    userToReturn[key] = newValue;
+                    console.log(userToReturn)
+                })
+                // ----------------------------------------------------------
+                //-------------------------- Check for nest ------------------
+                // ------------------------------------------------------------
+            if (typeof value == 'object') {
+                let newObject = existingUser[key];
+                userKeyContainer.append($userKey);
+                for (const [keyInner, valueInner] of Object.entries(newObject)) {
+                    let $nestedUserKeyValue = document.createElement('input'),
+                        nestedUserKey = document.createElement('h3'),
+                        nestedContainer = document.createElement('div');
+                    $nestedUserKeyValue.placeholder = keyInner;
+                    nestedUserKey.innerHTML = keyInner + ' : ';
+                    nestedContainer.className = 'nestedContainer';
+                    userKeyContainer.className = 'nestedKeyContainer';
+                    $nestedUserKeyValue.addEventListener('input', function() {
+                        let newValue = this.value;
+                        userToReturn[key][keyInner] = newValue;
+                        console.log(userToReturn)
+                    })
+                    nestedContainer.append(nestedUserKey, $nestedUserKeyValue);
+                    userKeyContainer.append(nestedContainer)
+                }
+            } else {
+                userKeyContainer.className = 'keyContainer';
+                userKeyContainer.append($userKey, userKeyValue);
+            }
+            $('#popUpInnerContent').append(userKeyContainer);
+        }
+        buttonContainer.append($confirmButton, cancelButton);
+        $('#popUpInnerContent').append(buttonContainer)
+        $('#popUp').css('display', 'flex');
+    } catch (error) {
+        alert('Error (User render) : ' + error)
+    }
+}
+// ------------------------------------------------------------------------------------------------------
+// --------------------------------------------------- SEARCH --------------------------------------------
+// --------------------------------------------------------------------------------------------------------
 async function userSearch(input) {
     let allUsers = await getInfo();
     let renderArray = [];
@@ -211,9 +302,9 @@ async function userSearch(input) {
     });
     render(renderArray)
 }
-// ----------------------------------------------------------------
-// ------------------------ User Action Controll--------------------
-// ------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------
+// ------------------------------------------------ User Action Controll-------------------------------------
+// -----------------------------------------------------------------------------------------------------------
 async function actionControll(type, id) {
     switch (type) {
         case 'edit':
@@ -239,7 +330,12 @@ async function actionControll(type, id) {
             }
             break;
         case 'add':
-
+            try {
+                userAdd();
+                actionControll();
+            } catch (error) {
+                alert('Error (Action controll) : ' + error)
+            }
             break;
         default:
             try {
@@ -251,18 +347,21 @@ async function actionControll(type, id) {
             break;
     }
 }
-// -----------------------------------------------------------------
-// ---------------------- User page START ---------------------------
-// -------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------ User page START --------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
 $(function() {
     actionControll();
     $('#popUp').on('click', function(e) {
         if ($('#popUp').is(e.target) || $('#popUpClose').is(e.target)) {
             $('#popUp').toggle()
         }
-    })
+    });
     $('#searchBar').on('input', function() {
         let searchContent = this.value.toLowerCase();
         userSearch(searchContent)
+    });
+    $('#addUserButton').on('click', function() {
+        actionControll('add');
     })
 })
