@@ -140,7 +140,6 @@ async function userEdit(id) {
             userKeyValue.addEventListener('input', function() {
                     let newValue = this.value;
                     userToReturn[key] = newValue;
-                    console.log(userToReturn)
                 })
                 // ----------------------------------------------------------
                 //-------------------------- Check for nest ------------------
@@ -159,7 +158,6 @@ async function userEdit(id) {
                     $nestedUserKeyValue.addEventListener('input', function() {
                         let newValue = this.value;
                         userToReturn[key][keyInner] = newValue;
-                        console.log(userToReturn)
                     })
                     nestedContainer.append(nestedUserKey, $nestedUserKeyValue);
                     userKeyContainer.append(nestedContainer)
@@ -191,7 +189,7 @@ async function userEdit(id) {
         // let flatUser = flatUserObject(userToEdit);
         // console.log(flatUser);
     } catch (error) {
-        alert('Error (User render) : ' + error)
+        alert('Error (User edit render) : ' + error)
     }
 }
 // ---------------------------------------------------------------------------------------------------------
@@ -213,15 +211,7 @@ async function userAdd() {
         buttonContainer.className = 'editButtonsContainer';
         $confirmButton.addEventListener('click', function() {
             try {
-                let allUsersCheck = getInfo();
-                console.log(allUsersCheck)
-                let id = 11;
-                for (let index = 0; index < allUsersCheck.length + 1; index++) {
-                    const element = allUsersCheck[id];
-                    console.log(element)
-
-                }
-                userPost(id, userToReturn);
+                userPost(userToReturn);
                 $('#popUp').toggle();
                 actionControll();
             } catch (error) {
@@ -245,10 +235,10 @@ async function userAdd() {
             $userKey.innerHTML = key;
             $userKey.className = 'keyValues';
             userKeyValue.placeholder = key;
+            userKeyValue.required = true;
             userKeyValue.addEventListener('input', function() {
                     let newValue = this.value;
                     userToReturn[key] = newValue;
-                    console.log(userToReturn)
                 })
                 // ----------------------------------------------------------
                 //-------------------------- Check for nest ------------------
@@ -261,13 +251,13 @@ async function userAdd() {
                         nestedUserKey = document.createElement('h3'),
                         nestedContainer = document.createElement('div');
                     $nestedUserKeyValue.placeholder = keyInner;
+                    $nestedUserKeyValue.required = true;
                     nestedUserKey.innerHTML = keyInner + ' : ';
                     nestedContainer.className = 'nestedContainer';
                     userKeyContainer.className = 'nestedKeyContainer';
                     $nestedUserKeyValue.addEventListener('input', function() {
                         let newValue = this.value;
                         userToReturn[key][keyInner] = newValue;
-                        console.log(userToReturn)
                     })
                     nestedContainer.append(nestedUserKey, $nestedUserKeyValue);
                     userKeyContainer.append(nestedContainer)

@@ -13,7 +13,7 @@ export async function getUserInfo(id) {
 }
 
 export async function userPost(data) {
-    return fetch(`${API_URL}`, {
+    return fetch(`${API_URL}/users`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
