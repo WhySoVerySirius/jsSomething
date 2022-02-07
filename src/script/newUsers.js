@@ -3,7 +3,30 @@ import { getInfo, userPost, userDelete, userUpdate, getUserInfo } from "./module
 // --------------------------------------- The main Render-------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------
 function render(array) {
-    $('#userTable').html(`<tr><th>Name</th><th>Phone No.</th><th>Username</th><th>E-Mail</th><th>Website</th></tr>`);
+    $('#userTable').html('');
+    let headerAddButton = document.createElement('th'),
+        headerName = document.createElement('th'),
+        headerPhone = document.createElement('th'),
+        headerUsername = document.createElement('th'),
+        headerEmail = document.createElement('th'),
+        headerWebsite = document.createElement('th'),
+        headerRow = document.createElement('tr'),
+        addButtonContainer = document.createElement('div'),
+        addButton = document.createElement('div')
+    headerName.innerHTML = 'name';
+    headerPhone.innerHTML = 'phone no.';
+    headerUsername.innerHTML = 'username';
+    headerEmail.innerHTML = 'e-mail';
+    headerWebsite.innerHTML = 'website';
+    addButtonContainer.className = 'addButton';
+    addButton.id = 'addUserButton';
+    addButton.addEventListener('click', function() {
+        actionControll('add')
+    })
+    addButtonContainer.append(addButton);
+    headerAddButton.append(addButtonContainer);
+    headerRow.append(headerName, headerPhone, headerUsername, headerEmail, headerWebsite, headerAddButton);
+    $('#userTable').append(headerRow);
     array.forEach(element => {
         let $name = document.createElement('td'),
             username = document.createElement('td'),
@@ -199,7 +222,9 @@ async function userAdd() {
     try {
         let existingUser = await getUserInfo(1);
         $('#popUpInnerContent').html('');
+        $('#userAddForm').html('');
         let userToReturn = await {...existingUser };
+        // Object.keys(userToReturn).forEach(key => !key === 'object' ? userToReturn[key] = '' : Object.keys(userToReturn[key]).forEach(innerkey => userToReturn[key][innerkey] = ''));
         let $confirmButton = document.createElement('button'),
             cancelButton = document.createElement('button'),
             buttonContainer = document.createElement('div');
@@ -208,6 +233,8 @@ async function userAdd() {
         // ---------------------------------------------------------
         $confirmButton.innerHTML = 'Apply changes';
         cancelButton.innerHTML = 'Cancel';
+        $confirmButton.type = 'button';
+        cancelButton.type = 'button';
         buttonContainer.className = 'editButtonsContainer';
         $confirmButton.addEventListener('click', function() {
             try {
@@ -266,13 +293,13 @@ async function userAdd() {
                 userKeyContainer.className = 'keyContainer';
                 userKeyContainer.append($userKey, userKeyValue);
             }
-            $('#popUpInnerContent').append(userKeyContainer);
+            $('#userAddForm').append(userKeyContainer);
         }
         buttonContainer.append($confirmButton, cancelButton);
-        $('#popUpInnerContent').append(buttonContainer)
+        $('#userAddForm').append(buttonContainer);
         $('#popUp').css('display', 'flex');
     } catch (error) {
-        alert('Error (User render) : ' + error)
+        alert('Error (Add user render) : ' + error)
     }
 }
 // ------------------------------------------------------------------------------------------------------
@@ -322,7 +349,6 @@ async function actionControll(type, id) {
         case 'add':
             try {
                 userAdd();
-                actionControll();
             } catch (error) {
                 alert('Error (Action controll) : ' + error)
             }
@@ -351,7 +377,4 @@ $(function() {
         let searchContent = this.value.toLowerCase();
         userSearch(searchContent)
     });
-    $('#addUserButton').on('click', function() {
-        actionControll('add');
-    })
 })

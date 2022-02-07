@@ -45,6 +45,7 @@
                 background: $locationTextColor;
                 padding-inline: 1rem;
                 color: white;
+                text-transform: capitalize;
             }
             td {
                 text-align: left;
@@ -53,23 +54,18 @@
                 height: 50px;
             }
         }
-        .buttonContainer {
+        .addButton {
+            // width: fit-content;
             display: flex;
-            justify-content: flex-end;
-            .addButton {
-                // width: fit-content;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 152px;
-                #addUserButton {
-                    content: '';
-                    height: 30px;
-                    aspect-ratio: 1;
-                    background: url(../img/icons/useradd.png);
-                    background-size: cover;
-                    color: white;
-                }
+            justify-content: center;
+            align-items: center;
+            width: 152px;
+            #addUserButton {
+                content: '';
+                height: 30px;
+                aspect-ratio: 1;
+                background: url(../img/icons/useradd.png);
+                background-size: cover;
             }
         }
     }
@@ -105,56 +101,56 @@
             #popUpInnerContent {
                 height: calc(100% - 60px);
                 width: 100%;
-                .editButtonsContainer {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    button {
-                        margin-inline: 2rem;
-                        margin-top: 2rem;
-                    }
+            }
+            .editButtonsContainer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                button {
+                    margin-inline: 2rem;
+                    margin-top: 2rem;
                 }
-                .userInfo {
-                    height: 100%;
-                    width: 100%;
-                    padding-inline: 1rem;
-                    .veryBold {
-                        font-weight: bold;
-                        text-transform: capitalize;
-                    }
-                    .needsBold {
-                        font-weight: bold;
-                        text-transform: capitalize;
-                    }
-                }
-                h3 {
+            }
+            .userInfo {
+                height: 100%;
+                width: 100%;
+                padding-inline: 1rem;
+                .veryBold {
+                    font-weight: bold;
                     text-transform: capitalize;
                 }
-                .keyContainer {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    &>* {
-                        margin-inline: 2rem;
-                    }
-                }
-                .keyValues {
+                .needsBold {
+                    font-weight: bold;
                     text-transform: capitalize;
-                    width: fit-content;
-                    &::after {
-                        content: '  :';
-                    }
                 }
-                .nestedContainer {
-                    text-align: left;
-                    margin-left: 4rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                }
-                .nestedKeyContainer {
+            }
+            h3 {
+                text-transform: capitalize;
+            }
+            .keyContainer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                &>* {
                     margin-inline: 2rem;
                 }
+            }
+            .keyValues {
+                text-transform: capitalize;
+                width: fit-content;
+                &::after {
+                    content: '  :';
+                }
+            }
+            .nestedContainer {
+                text-align: left;
+                margin: 0.5rem 0 0.5rem 4rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .nestedKeyContainer {
+                margin-inline: 2rem;
             }
             #newUserData {
                 display: inline-block;
