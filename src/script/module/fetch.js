@@ -32,6 +32,7 @@ export async function userUpdate(index, data) {
             }
         })
         .then(response => response.json())
+        .then(data => data)
         .then(console.log('patch done'))
 }
 

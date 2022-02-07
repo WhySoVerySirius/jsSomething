@@ -67,6 +67,7 @@ function render(array) {
 // -------------------------------------------------------------------------------------------------
 function inspectRender(object) {
     $('#popUpInnerContent').html('');
+    $('#userAddForm').html('');
     for (const [key, value] of Object.entries(object)) {
         let $userKey = document.createElement('h2'),
             userKeyValue = document.createElement('p'),
@@ -124,6 +125,7 @@ async function userEdit(id) {
     try {
         let userToEdit = await getUserInfo(id);
         $('#popUpInnerContent').html('');
+        $('#userAddForm').html('');
         let userToReturn = await {...userToEdit };
         let $confirmButton = document.createElement('button'),
             cancelButton = document.createElement('button'),

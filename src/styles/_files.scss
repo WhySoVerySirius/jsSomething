@@ -1,0 +1,84 @@
+@import 'variables';
+.fileContainer {
+    height: 100%;
+    width: 100%;
+    background: $infoColor;
+    .fileActions {
+        height: 100px;
+        width: 100%;
+        padding: 1rem;
+        display: flex;
+        align-items: flex-end;
+        button {
+            display: none;
+        }
+        label {
+            display: inline-block;
+            margin-inline-end: 1rem;
+        }
+        #fileUploadSticker {
+            content: '';
+            height: 30px;
+            aspect-ratio: 1;
+            background: url(../img/icons/uploadfile.png);
+            background-size: cover;
+            position: relative;
+            &::after {
+                content: 'upload';
+                position: absolute;
+                bottom: -3rem;
+                text-transform: capitalize;
+                background: url(../img/icons/opentextboxsmth.png);
+                background-size: cover;
+                padding: 0.5rem 1rem;
+                display: none;
+            }
+            &:hover &::after {
+                display: block;
+            }
+        }
+        #fileDeleteSticker {
+            content: '';
+            height: 30px;
+            aspect-ratio: 0.8;
+            background: url(../img/icons/delete.png);
+            background-size: cover;
+            position: relative;
+            &::after {
+                content: 'delete';
+                position: absolute;
+                bottom: -3rem;
+                text-transform: capitalize;
+                background: url(../img/icons/opentextboxsmth.png);
+                background-size: cover;
+                padding: 0.5rem 1rem;
+                display: none;
+            }
+        }
+        #fileShareSticker {
+            content: '';
+            height: 30px;
+            aspect-ratio: 1;
+            background: url(../img/icons/share.png);
+            background-size: cover;
+            position: relative;
+            &::after {
+                content: 'share';
+                position: absolute;
+                bottom: -3rem;
+                text-transform: capitalize;
+                background: url(../img/icons/opentextboxsmth.png);
+                background-size: cover;
+                padding: 0.5rem 1rem;
+                display: none;
+            }
+        }
+    }
+    .allFileContainer {
+        height: calc(100% - 100px);
+        background-color: $photoBackground;
+        width: 100%;
+        padding: 2rem;
+        overflow-y: auto;
+    }
+}
